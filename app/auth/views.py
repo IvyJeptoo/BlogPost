@@ -1,5 +1,9 @@
-from flask import flash, render_template,request
-from .import auth
+from flask import flash, render_template,request,redirect, url_for
+from .import auth 
+from ..models import User
+from app import db
+
+from werkzeug.security import generate_password_hash, check_password_hash
 
 
 @auth.route('/login',methods=['GET','POST'])
@@ -31,7 +35,11 @@ def signup():
             flash('Password length sshould be more than 5', category='error')  
             
         else:
-            flash('Account created successfully', category='success')             
+            new_user = User(email=email,username=username,password=generate_password_hash(password1,method='sha256'))
+            db.session.add(new_user)
+            db.session.commit()
+            flash('Account created successfully', category='success')  
+            return redirect(url_for('main.home'))           
             
     
     return render_template('register.html')
