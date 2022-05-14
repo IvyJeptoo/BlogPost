@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="cont">
-        <form method="POST">
-        <div class="form sign-in">
+        <form method="POST" action="{{url_for('auth.login')}}">
+        <div class="form sign-in" >
             <h2>Welcome back,</h2>
             <label>
                 <span>Email</span>
@@ -34,7 +34,7 @@
             </div>
             
 
-            <form method="POST">
+            <form method="POST" action="{{url_for('auth.signup')}}">
             <div class="form sign-up">
                 <h2>Time to feel like home,</h2>
                 <label>
