@@ -1,7 +1,7 @@
 from . import main
 from flask import render_template, request, redirect, url_for, flash
 from flask_login import login_required, current_user
-from ..models import Blog
+from ..models import Blog, Comment
 from app import db
 
 
@@ -44,13 +44,54 @@ def blog():
 @main.route('/delete/<int:blog_id>', methods=['GET','POST'])
 @login_required
 def deleteblog(blog_id):
-    blog = Blog.query.get(blog_id)
     
-   
-    db.session.delete(blog)
-    db.session.commit()
-    flash("deleted!",category='success')
+    blog = Blog.query.get_or_404(blog_id)
+    current_user_id = current_user.id
+    
+    
+    if current_user_id != 1:
+        flash("only the blog creator can delete this blog!", category='error')  
+    else:
+        if blog:
+            db.session.delete(blog)
+            db.session.commit()
+            flash("deleted!",category='success')
     
     return redirect(url_for('main.blogs'))
+
+@main.route('/comment',methods=['GET','POST'])
+@login_required
+def comment():
+    if request.method == 'POST':        
+        content = request.form.get('content')
+        nickname = request.form.get('nickname')        
+        new_comment = Comment(content=content,nickname=nickname)
         
+        db.session.add(new_comment)
+        db.session.commit()
+        print(new_comment)
+        
+        return redirect(url_for('main.comments')) 
+    
+    return render_template('comments.html')
+
+        
+@main.route('/comments')
+@login_required
+def comments():
+    allcomments = Comment.query.all()
+    print(allcomments)
+    return render_template('comments.html', allcomments=allcomments)
+
+@main.route('/remove/<int:comment_id>', methods=['GET','POST'])
+@login_required
+def deletecomment(comment_id):
+        comment = Comment.query.get_or_404(comment_id)
+    
+        db.session.delete(comment)
+        db.session.commit()
+        flash("comment deleted!",category='success')
+        return render_template ('comments.html')
+    
+    
     

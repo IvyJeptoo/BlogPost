@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% from 'comments_macro.html' import displayComments %}
+{% block content%}
+
+<div class="col-md-6">{{ displayComments(allcomments)}}</div>
+
+{% endblock%}
