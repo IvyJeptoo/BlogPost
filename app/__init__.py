@@ -22,8 +22,10 @@ def  create_app():
     # registering blueprints
     app.register_blueprint(main)
     app.register_blueprint(auth)
+    
+    
     # importing models
-    from .models import User
+    from .models import User,Blog, Comment
     
     create_database(app)
     

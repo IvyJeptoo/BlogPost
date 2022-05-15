@@ -1,0 +1,40 @@
+{% extends 'base.html' %} 
+{% macro displayBlogs(allblogs) %}
+<div class="blog">
+    <div class="container">
+        <h1>blog display</h1>
+        <div class="row">
+            <div class="col-md-12">
+                {% if allblogs %}
+                {% for blog in allblogs %}
+                <div class="card">
+                    <div class="card-header">
+                        {{blog.title}}                     
+                      
+                        
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{blog.content}}</h5>
+                        <p class="card-text">{{blog.author}}</p>
+                        <p class="card-text">{{blog.date}}</p>
+                        <div class="card-footer">
+                            <div class="comment">
+                                <a href="#" class="btn btn-sm btn-primary">comment</a>
+                            </div>
+                            <div class="edit">
+                                <a href="#" class="btn btn-sm btn-primary">edit</a>
+                                <a href="/delete/{{blog.id}}" class="btn btn-sm btn-primary">delete</a>
+                            </div>
+
+                        </div>
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endmacro %}

@@ -1,5 +1,5 @@
 from . import main
-from flask import render_template, request, redirect, url_for
+from flask import render_template, request, redirect, url_for, flash
 from flask_login import login_required, current_user
 from ..models import Blog
 from app import db
@@ -16,7 +16,14 @@ def home():
 def quote():
     return render_template('quote.html')
 
-@main.route('/blog',method=['GET','POST'])
+
+@main.route('/blogs')
+@login_required
+def blogs():
+    allblogs = Blog.query.all()
+    return render_template('blog_display.html', allblogs=allblogs)
+
+@main.route('/blog',methods=['GET','POST'])
 @login_required
 def blog():
     if request.method == 'POST':
@@ -27,7 +34,23 @@ def blog():
         
         new_blog = Blog(title=title,author=author, content=content, user_id=user_id)
         db.session.add(new_blog)
-        db.session.commit()                   
+        db.session.commit()    
+        
+        return redirect(url_for('main.blogs'))               
         
     
     return render_template('blog.html')
+
+@main.route('/delete/<int:blog_id>', methods=['GET','POST'])
+@login_required
+def deleteblog(blog_id):
+    blog = Blog.query.get(blog_id)
+    
+   
+    db.session.delete(blog)
+    db.session.commit()
+    flash("deleted!",category='success')
+    
+    return redirect(url_for('main.blogs'))
+        
+    
