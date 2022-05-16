@@ -88,7 +88,7 @@ def deletecomment(comment_id):
         comment = Comment.query.get_or_404(comment_id)
     
         db.session.delete(comment)
-        db.session.commit()
+        db.session.commit()        
         flash("comment deleted!",category='success')
         return render_template ('comments.html')
     
@@ -121,7 +121,7 @@ def editblog(blog_id):
             
                 flash("post has been updated!", category='success')
             
-                return redirect(url_for('main.blog'))
+                return redirect(url_for('main.blogs'))
             else:
               flash('post not found', category='error')
     else:

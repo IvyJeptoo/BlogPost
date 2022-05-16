@@ -28,7 +28,8 @@ input, button {
   width: 900px;
   height: 550px;
   margin: 0 auto 100px;
-  background: #fff;
+  background: rgb(184,145,111);
+  margin-top: 2em;
 }
 
 .form {
@@ -47,7 +48,7 @@ input, button {
   width: 900px;
   height: 100%;
   padding-left: 260px;
-  background: #fff;
+  background: rgb(184,145,111);
   transition: transform 1.2s ease-in-out;
 }
 .cont.s--signup .sub-cont {
@@ -139,6 +140,7 @@ button {
   font-size: 15px;
   cursor: pointer;
 }
+
 .img__btn:after {
   content: "";
   z-index: 2;
@@ -185,7 +187,7 @@ label {
 }
 label span {
   font-size: 12px;
-  color: #cfcfcf;
+  color: black;
   text-transform: uppercase;
 }
 
@@ -199,28 +201,19 @@ input {
   text-align: center;
 }
 
-.forgot-pass {
-  margin-top: 15px;
-  text-align: center;
-  font-size: 12px;
-  color: #cfcfcf;
-}
+
 
 .submit {
   margin-top: 40px;
   margin-bottom: 20px;
-  background: #d4af7a;
+  background: black;
   text-transform: uppercase;
 }
+.submit:hover{
+  background-color: rgb(205,179,156);
+  color: black;
+}
 
-.fb-btn {
-  border: 2px solid #d3dae9;
-  color: #8fa1c7;
-}
-.fb-btn span {
-  font-weight: bold;
-  color: #455a81;
-}
 
 .sign-in {
   transition-timing-function: ease-out;
@@ -236,4 +229,49 @@ input {
 }
 .cont.s--signup .sign-up {
   transform: translate3d(0, 0, 0);
+}
+
+.quotecard{
+ 
+  border-radius: 10px;
+  
+}
+.quote{
+  margin-top: 10%;
+  margin-left: 50%;
+  
+}
+.quotebtn {
+  margin-top: 40px;
+  margin-bottom: 20px;
+  background: #80461B;
+  text-transform: uppercase;
+  color: #cdb39c;
+  text-decoration: none;
+  font-weight: 900;
+}
+.quotebtn:hover{
+  background-color: #cdb39c;
+  color: #7B3F00;
+}
+.quotebtn{
+  margin-left: 75%;
+}
+body{
+  background-image:url(../images/quotelanding.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  
+  
+}
+.blogfooter{
+  display: flex;
+  justify-content: space-between;
+}
+.blogcard{
+  padding: 2em;
+  border: 1px solid red;
+}
+.card{
+  margin-top: 3em;
 }
