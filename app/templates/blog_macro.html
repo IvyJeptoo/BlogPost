@@ -2,28 +2,27 @@
 {% macro displayBlogs(allblogs) %}
 <div class="blog">
     <div class="container">
-        <h1>blog display</h1>
+        <h1 style="text-align: center; font-weight: 900;">Blog Zone</h1>
         <div class="row">
             <div class="col-md-12">
                 {% if allblogs %}
                 {% for blog in allblogs %}
-                <div class="card">
-                    <div class="card-header">
-                        {{blog.title}}                     
-                      
+                <div class="card ">
+                    <div class="card-header blogheader">
+                        <h3>{{blog.title}} </h3>                                             
                         
                     </div>
                     <div class="card-body">
-                        <h5 class="card-title">{{blog.content}}</h5>
-                        <p class="card-text">{{blog.author}}</p>
-                        <p class="card-text">{{blog.date}}</p>
-                        <div class="card-footer">
+                        <h5 class="card-title">{{blog.content}}</h6>
+                        <h6 class="card-text">Blog by:{{blog.author}}</h6>
+                        <p class="card-text">Posted on: {{blog.date.strftime('%Y-%m-%d')}}</p>
+                        <div class="card-footer blogfooter">
                             <div class="comment">
-                                <a href="/comment" class="btn btn-sm btn-primary">comment</a>
+                                <a href="/comment" class="btn btn-outline-dark btn-sm">comment</a>
                             </div>
                             <div class="edit">
-                                <a href="/edit/{{blog.id}}" class="btn btn-sm btn-primary">edit</a>
-                                <a href="/delete/{{blog.id}}" class="btn btn-sm btn-primary">delete</a>
+                                <a href="/edit/{{blog.id}}" class="btn btn-outline-success btn-sm">edit</a>
+                                <a href="/delete/{{blog.id}}" class="btn btn-outline-danger btn-sm">delete</a>
                             </div>
 
                         </div>

@@ -1,10 +1,25 @@
 {% extends 'base.html' %}
 {% macro displayComments(allcomments) %}
-<div class="container">
-    <h3>Comments Section</h3>
+<div class="container">    
     <div class="row">
-    <div class="col-md-3"></div>
     <div class="col-md-6">
+         <form method="POST">
+             <h3 style="text-align: center;">Post a comment</h3>
+             <div class="mb-3">
+                 <label for="nickname">Nickname</label>
+                 <input type="text" id="nickname" name="nickname" placeholder="enter your nickname" required>
+             </div>
+             <div class="mb-3">
+                 <label for="content">comment</label>
+                 <input type="text" id="content" name="content" placeholder="enter your comment" required>
+             </div>
+             <a style="text-decoration: none;" href="/comments"><button type="submit"
+                     class="submit">Comment</button></a>
+
+         </form>
+    </div>
+    <div class="col-md-6">
+        <h3 style="text-align: center;">Comments section</h3>
         {% if allcomments %}
         {% for comment in allcomments %}
         <div class="card">
@@ -14,41 +29,22 @@
             <div class="card-body">
                 <blockquote class="blockquote mb-0">
                     <p>{{comment.content}}</p>
-                    <footer class="blockquote-footer">Posted on:<cite title="Source Title">{{comment.date}}</cite>
+                    <footer class="blockquote-footer">Posted on:<cite
+                            title="Source Title">{{comment.date.strftime('%Y-%m-%d')}}</cite>
                     </footer>
-                    <a href="/remove/{{comment.id}}" class="btn btn-sm btn-primary">delete</a>
+                    <a href="/remove/{{comment.id}}" class="btn btn-outline-danger btn-sm">delete</a>
+
+                    
                 </blockquote>
             </div>
             
         </div>
-    </div>
-    <div class="col-md-3"></div>
+    </div>  
 
     </div>
 </div>
 {% endfor %}
 {% endif %}
-<div class="container">
-    <div class="row">
-        <div class="col-md-3"></div>
-        <div class="col-md-6">
-            <form method="POST">
-                <div class="mb-3">
-                <label for="nickname">Nickname</label>
-                <input type="text" id="nickname" name="nickname" placeholder="enter your nickname">
-                </div>
-                <div class="mb-3">
-                    <label for="content">comment</label>
-                    <input type="text" id="content" name="content" placeholder="enter your comment">
-                </div>
-                <a href="/comments"><button class="btn btn-dark">comment</button></a>
 
-
-            </form>
-
-        </div>
-        <div class="col-md-3"></div>
-    </div>
-</div>
 
 {% endmacro%}

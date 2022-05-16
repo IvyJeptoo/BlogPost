@@ -1,15 +1,31 @@
-{% extends "base.html" %}
+ {% extends "base.html" %}
+ {% block content%}
 
-{% block content %}
+ <div class="col-md-3"></div>
+ <div class="col-md-6">
+     <div class="container quote">
+         <div class="row quotebody">
 
-<div class="row">
-    <div class="col-md-6">
-        <h1>quote</h1>         
-         <a href="/quotes"><button class="btn btn-dark">display quote</button></a>
-    </div>
-    <div class="col-md-6">
-        <h1>blog</h1>
-        <a href="/blog"><button class="btn btn-dark">post blog</button></a>
-    </div>
-</div>
-{% endblock%}
+             <div class="card quotecard">
+                 <div style="font-weight: 600; font-size: larger; color: #BE8C63;" class="card-header">
+                     <span> Quote</span>
+
+                 </div>
+                 <div class="card-body">
+                     <blockquote class="blockquote mb-0">
+                         <p>{{quote.quote}}</p> <br>
+                         <footer class="blockquote-footer">Quote by: <cite title="Source Title">{{quote.author}}</cite>
+                         </footer>
+                     </blockquote>
+                 </div>
+             </div>
+
+
+         </div>
+     </div>
+     <a style="text-decoration: none;" href="/blog"><button class="quotebtn">Post a blog</button></a>
+ </div>
+
+ <div class="col-md-3"></div>
+
+ {% endblock %}
