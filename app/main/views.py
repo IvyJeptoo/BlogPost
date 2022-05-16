@@ -4,6 +4,8 @@ from flask_login import login_required, current_user
 from ..models import Blog, Comment
 from app import db
 
+from ..requests import get_quote
+
 
 @main.route('/')
 @login_required
@@ -11,10 +13,7 @@ def home():
     return render_template('home.html',user=current_user)
 
 
-@main.route('/quote')
-@login_required
-def quote():
-    return render_template('quote.html')
+
 
 
 @main.route('/blogs')
@@ -93,5 +92,46 @@ def deletecomment(comment_id):
         flash("comment deleted!",category='success')
         return render_template ('comments.html')
     
+@main.route('/quotes')
+@login_required
+def displayquote():
+    quote = get_quote()
+    
+    
+    return render_template('quotesdisplay.html',quote=quote)
+
+
+@main.route('/edit/<int:blog_id>', methods=['GET','POST'])
+@login_required
+def editblog(blog_id):
+    blog = Blog.query.get_or_404(blog_id)
+    current_user_id = current_user.id    
+    
+    if request.method == 'POST':
+        if current_user_id != 1:
+            flash("only the blog creator can edit this blog!", category='error')  
+        else:
+            if blog:
+                blog.title = request.form.get('title')
+                blog.author = request.form.get('author')
+                blog.content = request.form.get('content')
+            
+                db.session.add(blog)
+                db.session.commit()
+            
+                flash("post has been updated!", category='success')
+            
+                return redirect(url_for('main.blog'))
+            else:
+              flash('post not found', category='error')
+    else:
+        blog.title = request.form.get('title')
+        blog.author = request.form.get('author')
+        blog.content = request.form.get('content')
+        
+    return render_template('edit.html')
+            
+        
+     
     
     
